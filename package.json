@@ -1,0 +1,21 @@
+{
+  "name": "hsl",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "format": "npx prettier index.html src/ --write"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "twgl.js": "^6.1.1"
+  }
+}
