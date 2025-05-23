@@ -28,31 +28,43 @@ resize();
 
 const vertexShader = `
     attribute vec4 position;
-    varying vec2 v_uv;
+    varying vec2 uv;
     void main() {
-      v_uv = position.xy * 0.5 + 0.5;
+      uv = position.xy;
       gl_Position = position;
     }
   `;
 
 const fragShader = `
   precision mediump float;
-  varying vec2 v_uv;
+  varying vec2 uv;
+
+  #define PI2 6.283185308
 
   // From https://github.com/hughsk/glsl-hsv2rgb
-  vec3 hsv2rgb3(vec3 c)
-  {
-      vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
-      vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
-      return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+  vec3 hsv2rgb3(vec3 c) {
+    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+  }
+
+  vec3 tohsv(vec2 xy) {
+    float d = sqrt(xy.x*xy.x + xy.y*xy.y);
+
+    // map angle from [-pi,pi] to [-0.5,0.5]
+    float angle = atan(xy.y, xy.x)/PI2;
+
+    // Out of bounds should be white
+    if (d > 1.0) {
+      return vec3(0.0, 0.0, 1.0);
+    }
+
+    return vec3(angle, d, 1.0);
   }
 
   void main() {
-    vec3 hsv = vec3(v_uv.x, v_uv.y, 1.0);
+    vec3 hsv = tohsv(uv);
     vec3 color = hsv2rgb3(hsv);
-    if (v_uv.x*v_uv.x + v_uv.y*v_uv.y < 0.01) {
-       color = vec3(0.0,0.0,0.0);
-    }
     gl_FragColor = vec4(color, 1.0);
   }
 `;
