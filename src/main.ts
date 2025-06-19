@@ -162,7 +162,7 @@ const loadImage = (file: any) => {
   // origin of line
   let x0 = 0;
   let y0 = 0;
-  canvas2.addEventListener("mousedown", (e) => {
+  canvas2.addEventListener("mousedown", (e: any) => {
     x0 = e.offsetX;
     y0 = e.offsetY;
     canvas2.addEventListener("mousemove", moved);
@@ -170,7 +170,7 @@ const loadImage = (file: any) => {
   canvas2.addEventListener("mouseup", () => {
     canvas2.removeEventListener("mousemove", moved);
   });
-  const moved = (e) => {
+  const moved = (e: any) => {
     const x = e.offsetX;
     const y = e.offsetY;
 
@@ -228,8 +228,8 @@ function iterateLine(x0: number, y0: number, x1: number, y1: number, n: number, 
 }
 
 document.querySelector('#getfile')!
-        .addEventListener('change', (e) => {
-  var file = (e as any).target.files[0];
+        .addEventListener('change', (e: any) => {
+  var file = e.target.files[0];
   loadImage(window.URL.createObjectURL(file));
   e.preventDefault();
 });
@@ -241,5 +241,5 @@ document.querySelector('#getfile')!
 //   render();
 // });
 
-// Starting colour
-render({r:0, g:0, b:0});
+// Initial render
+render([]);
