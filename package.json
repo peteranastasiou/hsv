@@ -16,6 +16,8 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
+    "@types/lodash": "^4.17.18",
+    "lodash": "^4.17.21",
     "twgl.js": "^6.1.1"
   }
 }

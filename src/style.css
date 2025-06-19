@@ -19,9 +19,11 @@
 body {
   margin: 0;
   display: flex;
+  flex-direction: column;
 }
 
 canvas {
+  /* Must match code pixel density!*/
   width: 500px;
   height: 500px;
   margin: auto;
