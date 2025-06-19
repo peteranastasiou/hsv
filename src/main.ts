@@ -77,7 +77,7 @@ const fragShader = `
     }
 
     if (minDist < u_thickness) {
-      gl_FragColor = vec4(1,0,0,1);
+      gl_FragColor = vec4(0,0,0,1);
     } else {
       // radial rainbow
       vec3 hsv = toRadialHsv(uv);
@@ -140,7 +140,7 @@ function render(points: number[][]) {
   twgl.setUniforms(programInfo, {
     u_points: ([] as number[]).concat.apply([], points),  // trust me, this nonsense simply flattens [[a,b],[c,d]] to [a,b,c,d]
     u_pointCount: points.length,
-    u_thickness: 0.01,
+    u_thickness: 0.005,
   });
   twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
   twgl.drawBufferInfo(gl, bufferInfo);
